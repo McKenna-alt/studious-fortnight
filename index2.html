@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Tipo de Piel</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; }
+        .resultado { font-size: 20px; font-weight: bold; margin-top: 20px; color: #007bff; }
+    </style>
+</head>
+<body>
+
+    <h2>Descubre tu Tipo de Piel</h2>
+
+    <form id="skinForm">
+        <p>1. ¿Cómo sientes tu piel después de lavarla?</p>
+        <input type="radio" name="pregunta1" value="seca"> Tirante y reseca<br>
+        <input type="radio" name="pregunta1" value="normal"> Suave y equilibrada<br>
+        <input type="radio" name="pregunta1" value="grasa"> Con brillo y grasa<br>
+        <input type="radio" name="pregunta1" value="mixta"> Seca en algunas zonas, grasa en otras<br><br>
+
+        <p>2. ¿Tu piel suele sentirse grasa en la zona T (frente, nariz y mentón)?</p>
+        <input type="radio" name="pregunta2" value="grasa"> Sí, siempre<br>
+        <input type="radio" name="pregunta2" value="mixta"> A veces<br>
+        <input type="radio" name="pregunta2" value="normal"> Rara vez<br>
+        <input type="radio" name="pregunta2" value="seca"> Nunca<br><br>
+
+        <p>3. ¿Tu piel se irrita fácilmente con productos nuevos o cambios en el clima?</p>
+        <input type="radio" name="pregunta3" value="sensible"> Sí, con cualquier cosa<br>
+        <input type="radio" name="pregunta3" value="normal"> No mucho, solo en ocasiones<br>
+        <input type="radio" name="pregunta3" value="grasa"> No, nunca<br><br>
+
+        <p>4. ¿Con qué frecuencia sientes la piel seca o escamosa?</p>
+        <input type="radio" name="pregunta4" value="seca"> Siempre<br>
+        <input type="radio" name="pregunta4" value="mixta"> A veces<br>
+        <input type="radio" name="pregunta4" value="normal"> Rara vez<br>
+        <input type="radio" name="pregunta4" value="grasa"> Nunca<br><br>
+
+        <p>5. ¿Tienes tendencia a desarrollar acné, puntos negros o granitos?</p>
+        <input type="radio" name="pregunta5" value="grasa"> Sí, con frecuencia<br>
+        <input type="radio" name="pregunta5" value="mixta"> A veces, en ciertas zonas<br>
+        <input type="radio" name="pregunta5" value="normal"> No muy seguido<br>
+        <input type="radio" name="pregunta5" value="seca"> Nunca<br><br>
+
+        <p>6. ¿Cómo reacciona tu piel cuando te expones al sol sin protección?</p>
+        <input type="radio" name="pregunta6" value="sensible"> Se enrojece o se quema fácilmente<br>
+        <input type="radio" name="pregunta6" value="normal"> Se broncea lentamente<br>
+        <input type="radio" name="pregunta6" value="grasa"> Se broncea rápido y rara vez se quema<br>
+        <input type="radio" name="pregunta6" value="seca"> Se descama después de exponerse<br><br>
+
+        <p>7. ¿Cómo describirías la textura de tu piel?</p>
+        <input type="radio" name="pregunta7" value="seca"> Áspera o con descamación<br>
+        <input type="radio" name="pregunta7" value="mixta"> Suave, pero con zonas secas y grasas<br>
+        <input type="radio" name="pregunta7" value="grasa"> Gruesa y con poros visibles<br>
+        <input type="radio" name="pregunta7" value="normal"> Suave y uniforme<br><br>
+
+        <p>8. ¿Notas líneas finas, arrugas o pérdida de firmeza en tu piel?</p>
+        <input type="radio" name="pregunta8" value="seca"> Sí, muchas<br>
+        <input type="radio" name="pregunta8" value="normal"> Unas pocas<br>
+        <input type="radio" name="pregunta8" value="grasa"> No muchas<br>
+        <input type="radio" name="pregunta8" value="mixta"> Algunas en ciertas áreas<br><br>
+
+        <button type="button" onclick="calcularPiel()">Ver resultado</button>
+    </form>
+
+    <p class="resultado" id="resultado"></p>
+
+    <script>
+        function calcularPiel() {
+            let respuestas = {
+                seca: 0,
+                grasa: 0,
+                mixta: 0,
+                normal: 0,
+                sensible: 0
+            };
+
+            // Obtener todas las respuestas seleccionadas
+            let opciones = document.querySelectorAll('input[type="radio"]:checked');
+            opciones.forEach(opcion => {
+                respuestas[opcion.value]++;
+            });
+
+            // Determinar el tipo de piel con más puntos
+            let tipoPiel = Object.keys(respuestas).reduce((a, b) => respuestas[a] > respuestas[b] ? a : b);
+
+            // Mostrar el resultado con una pequeña descripción
+            let descripcion = {
+                seca: "Tu piel tiende a sentirse tirante y con descamación. Necesita mucha hidratación.",
+                grasa: "Tu piel produce más grasa de lo normal y puede ser propensa al acné. Usa productos ligeros y matificantes.",
+                mixta: "Tu piel tiene una combinación de zonas secas y grasas, especialmente en la zona T.",
+                normal: "Tu piel está equilibrada, sin demasiada grasa ni sequedad.",
+                sensible: "Tu piel es delicada y reacciona con facilidad a factores externos. Usa productos suaves y sin fragancias."
+            };
+
+            document.getElementById("resultado").innerText = "Tu tipo de piel es: " + tipoPiel.toUpperCase() + ". " + descripcion[tipoPiel];
+        }
+    </script>
+
+</body>
+</html>
